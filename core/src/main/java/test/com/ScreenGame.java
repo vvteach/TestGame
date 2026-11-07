@@ -11,15 +11,17 @@ public class ScreenGame implements Screen {
     MyGdxGame myGdxGame;
     Bird bird;
     Tube[] tubes;
+    boolean lost;
 
     ScreenGame(MyGdxGame myGdxGame) {
         Random r = new Random();
         this.myGdxGame = myGdxGame;
-        bird = new Bird(0, 0, 10, 250, 200);
+        bird = new Bird(0, 360, 10, 150, 120);
         tubes = new Tube[10];
         for (int i = 0; i < tubes.length; i++) {
-            tubes[i] = new Tube(i * 250 + 50, -200 + r.nextInt(-300, 0));
+            tubes[i] = new Tube(i * 250 + 500, -200 + r.nextInt(-300, 0));
         }
+        lost = false;
     }
 
     @Override
@@ -34,8 +36,24 @@ public class ScreenGame implements Screen {
 
         bird.fly();
         for(Tube tube: tubes){
-            tube.move();
+            if (!lost) {
+                tube.move();
+            }
         }
+
+        for (Tube tube: tubes){ /*
+            bird.x bird.y tube.x tube.y
+            bird.width bird.height 100 574
+
+            */
+            int y2 = tube.y + 574 + tube.d;
+            // не закончено
+            if (bird.y > tube.y + 574 && bird.y + bird.height < y2){
+
+            }
+        }
+
+
 
         ScreenUtils.clear(0, 0, 1, 1);
 
