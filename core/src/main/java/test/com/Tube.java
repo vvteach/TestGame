@@ -8,6 +8,7 @@ import java.util.Random;
 public class Tube {
     Texture tubeTexture, flippedTubeTexture;
     int x, y, d;
+    boolean isPointReceived = false;
     public Tube(int x, int y) {
         this.x = x;
         this.y = y;
@@ -25,9 +26,19 @@ public class Tube {
 
     void move(){
         x -= 5;
-        if (x < -100)
+        if (x < -100) {
             x = 2400;
+            isPointReceived = false;
+        }
 
+    }
+
+    public boolean needAddPoint(Bird bird) {
+        if (!isPointReceived && x + 100 <= bird.x){
+            isPointReceived = true;
+            return true;
+        }
+        return false;
     }
 
     void dispose() {
