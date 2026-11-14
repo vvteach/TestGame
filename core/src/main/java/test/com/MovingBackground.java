@@ -10,7 +10,7 @@ public class MovingBackground {
     int x;
     public MovingBackground() {
         this.x = 0;
-        texture = new Texture("tube.png");
+        texture = new Texture("game_bg.png");
     }
 
     void draw(Batch batch) {
@@ -20,7 +20,7 @@ public class MovingBackground {
     }
 
     void move(){
-        x -= 1;
+        x -= 2;
         if (x < -MyGdxGame.SCR_WIDTH) {
             x = 0;
         }

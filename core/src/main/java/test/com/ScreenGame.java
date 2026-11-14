@@ -14,6 +14,7 @@ public class ScreenGame implements Screen {
     boolean lost;
     int gamePoints;
     PointCounter pointCounter;
+    MovingBackground background;
 
     ScreenGame(MyGdxGame myGdxGame) {
         Random r = new Random();
@@ -31,6 +32,7 @@ public class ScreenGame implements Screen {
         lost = false;
         gamePoints = 0;
         pointCounter = new PointCounter(100, 100);
+        background = new MovingBackground();
     }
 
     @Override
@@ -61,7 +63,7 @@ public class ScreenGame implements Screen {
             //}
         }
 
-
+        background.move();
 
         ScreenUtils.clear(0, 0, 1, 1);
 
@@ -69,7 +71,7 @@ public class ScreenGame implements Screen {
         myGdxGame.batch.setProjectionMatrix(myGdxGame.camera.combined);
 
         myGdxGame.batch.begin();
-
+        background.draw(myGdxGame.batch);
         bird.draw(myGdxGame.batch);
         for (Tube tube: tubes) {
             tube.draw(myGdxGame.batch);
