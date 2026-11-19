@@ -19,7 +19,7 @@ public class ScreenGame implements Screen {
     ScreenGame(MyGdxGame myGdxGame) {
         Random r = new Random();
         this.myGdxGame = myGdxGame;
-        bird = new Bird(0, 360, 10, 150, 120);
+        bird = new Bird(0, 360, 1, 75, 60);
         tubes = new Tube[10];
         for (int i = 0; i < tubes.length; i++) {
             tubes[i] = new Tube(i * 250 + 500, -200 + r.nextInt(-300, 0));
@@ -52,15 +52,8 @@ public class ScreenGame implements Screen {
             if (tube.needAddPoint(bird)){
                 gamePoints += 10;
             }
-            /*
-            bird.x bird.y tube.x tube.y
-            bird.width bird.height 100 574
-
-            */
-            //int y2 = tube.y + 574 + tube.d;
-            // не закончено столкновение
-            //if (bird.y > tube.y + 574 && bird.y + bird.height < y2){
-            //}
+            if (tube.isHit(bird))
+                System.exit(0);
         }
 
         background.move();
@@ -71,12 +64,14 @@ public class ScreenGame implements Screen {
         myGdxGame.batch.setProjectionMatrix(myGdxGame.camera.combined);
 
         myGdxGame.batch.begin();
+        /////////////////// ОТРИСОВКА ///////////////////////////
         background.draw(myGdxGame.batch);
         bird.draw(myGdxGame.batch);
         for (Tube tube: tubes) {
             tube.draw(myGdxGame.batch);
         }
         pointCounter.draw(myGdxGame.batch, gamePoints);
+        /////////////////////////////////////////////////////////
         myGdxGame.batch.end();
     }
 
